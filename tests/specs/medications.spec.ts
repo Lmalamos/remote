@@ -1,0 +1,56 @@
+import { test, expect } from '@playwright/test';
+import { loginPage } from '../pages/loginPage';
+import { navigationPage } from '../pages/navigationPage';
+import { memberSearchPage } from '../pages/memberSearchPage';
+import { memberDetailsPage } from '../pages/memberDetailsPage';
+
+import { profilePage } from '../pages/profilePage';
+
+import { activitiesPanel } from '../pages/memberHub/activities';
+
+import { TEST_DATA } from '../config/testData';
+import { medicationsPanel } from '../pages/memberHub/medications';
+
+test.describe('STAGE - Medications Testing Suite', () => {
+    test('Complete Medications test flow', async ({ page }) => {
+        test.setTimeout(500000);
+
+        // Initialize page objects:
+        const login = new loginPage(page);
+        const nav = new navigationPage(page);
+        //const eligibleTasks = new eligibleMemberTasks(page);
+        const memberSearch = new memberSearchPage(page);
+        const memberDetails = new memberDetailsPage(page);
+        const activities = new activitiesPanel(page);
+        const profile = new profilePage(page);
+        const medications = new medicationsPanel(page);
+
+        try {
+            await test.step('Login to application', async () => {
+                await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
+            });
+
+            await test.step('Search for member and test Medications', async () => {
+                await nav.goToDashboard();
+                await nav.openSearchMenu();
+                await nav.openMemberSearch();
+
+                await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
+                await memberSearch.openMemberHub(TEST_DATA.testMember.id);
+
+                //verify data in Medications panel:
+                //await labs.verifyMedicationsData();
+            });
+        } catch (err) {
+            console.error('Test failed with error:', err);
+            throw err;
+        } finally {
+            await page.close();
+        }
+    });
+});
+
+test.beforeEach(async ({ page }) => {
+    const login = new loginPage(page);
+    await login.goto();
+});
