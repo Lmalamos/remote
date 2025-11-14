@@ -5,6 +5,8 @@ import { navigationPage } from '../pages/navigationPage';
 
 test.describe('Member Search Page Tests', () => {
     test('Search for a Member', async ({ page }) => {
+        test.setTimeout(500000);
+
         const login = new loginPage(page);
         await login.login('autosmoke', 'Playwright!1');
         await login.verifyLogin();

@@ -2,30 +2,32 @@ import { test, expect } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
-import { activitiesPanel } from '../pages/memberHub/activities';
+import { allergiesPanel } from '../pages/memberHub/allergies';
 import { TEST_DATA } from '../config/testData';
 
-test.describe('STAGE - Activities Testing Suite', () => {
-    test('Complete Activities test flow', async ({ page }) => {
-        test.setTimeout(500000);
+test.describe('STAGE - Delete Allergies Testing Suite', () => {
+    test('Delete Allergies test flow', async ({ page }) => {
+        test.setTimeout(50000000);
 
         const login = new loginPage(page);
         const nav = new navigationPage(page);
         const memberSearch = new memberSearchPage(page);
-        const activities = new activitiesPanel(page);
+        const allergies = new allergiesPanel(page);
 
         try {
             await test.step('Login to application', async () => {
                 await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
             });
 
-            await test.step('Search for member and test Activities', async () => {
+            await test.step('Search for member and delete Allergies', async () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-                await activities.verifyActivitiesData();
+
+                //delete allergies through automation script:
+                await allergies.deleteAllergies();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

@@ -3,29 +3,31 @@ import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
 import { activitiesPanel } from '../pages/memberHub/activities';
+import { scheduledTasksPanel } from '../pages/memberHub/scheduledTask';
 import { TEST_DATA } from '../config/testData';
 
-test.describe('STAGE - Activities Testing Suite', () => {
-    test('Complete Activities test flow', async ({ page }) => {
+test.describe('STAGE - Member Hub Scheduled Tasks Testing Suite', () => {
+    test('Complete Member Hub Scheduled Tasks test flow', async ({ page }) => {
         test.setTimeout(500000);
 
         const login = new loginPage(page);
         const nav = new navigationPage(page);
         const memberSearch = new memberSearchPage(page);
         const activities = new activitiesPanel(page);
+        const scheduledTasks = new scheduledTasksPanel(page);
 
         try {
             await test.step('Login to application', async () => {
                 await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
             });
 
-            await test.step('Search for member and test Activities', async () => {
+            await test.step('Search for member and test Scheduled Tasks', async () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-                await activities.verifyActivitiesData();
+                await scheduledTasks.testScheduledTask();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

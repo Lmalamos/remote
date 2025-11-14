@@ -34,6 +34,7 @@ test.describe('STAGE - Assessments Testing Suite', () => {
                 await assessments.expandPanel();
                 await assessments.verifyMemberScreening();
                 await assessments.verifyStressScaleAssessment();
+                await assessments.performAssessment();
             });
         } catch (err) {
             console.error('Test failed with error:', err);
