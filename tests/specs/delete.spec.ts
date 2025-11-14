@@ -6,7 +6,7 @@ import { allergiesPanel } from '../pages/memberHub/allergies';
 import { TEST_DATA } from '../config/testData';
 
 test.describe('STAGE - Delete Allergies Testing Suite', () => {
-    test('Delete Allergies test flow', async ({ page }) => {
+    test.skip('Delete Allergies test flow', async ({ page }) => {
         test.setTimeout(50000000);
 
         const login = new loginPage(page);

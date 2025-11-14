@@ -27,8 +27,6 @@ test.describe('STAGE - Allergies Testing Suite', () => {
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
                 await allergies.verifyAllergiesData('dog', 'dander', 'milk');
                 await allergies.verifyNoAllergiesData('test', 'butter', 'nut');
-
-                //await page.pause();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

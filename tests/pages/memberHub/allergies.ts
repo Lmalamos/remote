@@ -1,4 +1,4 @@
-import { test, expect, Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 
 export class allergiesPanel {
   readonly page: Page;
@@ -52,32 +52,24 @@ export class allergiesPanel {
 
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().fill(allergy1);
-    //await expect(this.page.getByText('No matching records found')).not.toBeVisible();
+    await expect(this.page.getByText('No matching records found')).not.toBeVisible();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().fill(allergy2);
-    //await expect(this.page.getByText('No matching records found')).not.toBeVisible();
+    await expect(this.page.getByText('No matching records found')).not.toBeVisible();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().fill(allergy3);
-    //await expect(this.page.getByText('No matching records found')).not.toBeVisible();
+    await expect(this.page.getByText('No matching records found')).not.toBeVisible();
   }
 
   async verifyNoAllergiesData(allergy1: string, allergy2: string, allergy3: string) {
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().fill(allergy1);
-
-    //await expect(this.page.getByText('No matching records found')).toBeVisible();
     await expect(this.page.getByRole('alert')).toContainText('No matching records found');
-
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().fill(allergy2);
-    
-    //await expect(this.page.getByText('No matching records found')).toBeVisible();
     await expect(this.page.getByRole('alert')).toContainText('No matching records found');
-
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).first().fill(allergy3);
-    
-    //await expect(this.page.getByText('No matching records found')).toBeVisible();
     await expect(this.page.getByRole('alert')).toContainText('No matching records found');
   }
 
