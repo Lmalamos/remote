@@ -3,11 +3,8 @@ import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
 import { memberDetailsPage } from '../pages/memberDetailsPage';
-
 import { profilePage } from '../pages/profilePage';
-
 import { activitiesPanel } from '../pages/memberHub/activities';
-
 import { TEST_DATA } from '../config/testData';
 import { notesPanel } from '../pages/memberHub/notes';
 
@@ -18,14 +15,10 @@ test.describe('STAGE - Notes Testing Suite', () => {
         // Initialize page objects:
         const login = new loginPage(page);
         const nav = new navigationPage(page);
-        //const eligibleTasks = new eligibleMemberTasks(page);
         const memberSearch = new memberSearchPage(page);
         const memberDetails = new memberDetailsPage(page);
-        //const careManagement = new careManagementPanel(page);
         const activities = new activitiesPanel(page);
         const profile = new profilePage(page);
-        //const immunization = new immunizationPage(page);
-        //const careTeam = new careTeamPage(page);
         const notes = new notesPanel(page);
 
         try {
@@ -37,12 +30,9 @@ test.describe('STAGE - Notes Testing Suite', () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
-
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-
-                //verify data in Notes panel:
-                //await labs.verifyNotesData();
+                await notes.verifyNotesData();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

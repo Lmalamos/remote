@@ -40,3 +40,11 @@ test.beforeEach(async ({ page }) => {
     const login = new loginPage(page);
     await login.goto();
 });
+
+// test.afterEach(async ({ page }) => {
+//     await page.close();
+// });
+
+// test.afterAll(async ({ page }) => {
+//     await page.close();
+// });
