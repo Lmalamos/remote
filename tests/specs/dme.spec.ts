@@ -28,6 +28,9 @@ test.describe('STAGE - DME Testing Suite', () => {
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
                 await dme.verifyDMEData();
             });
+            // await test.step('Search invalid DME', async () => {
+
+            // });
         } catch (err) {
             console.error('Test failed with error:', err);
             throw err;

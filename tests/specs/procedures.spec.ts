@@ -18,31 +18,25 @@ test.describe('STAGE - Procedures Testing Suite', () => {
         // Initialize page objects:
         const login = new loginPage(page);
         const nav = new navigationPage(page);
-        //const eligibleTasks = new eligibleMemberTasks(page);
         const memberSearch = new memberSearchPage(page);
         const memberDetails = new memberDetailsPage(page);
-        //const careManagement = new careManagementPanel(page);
         const activities = new activitiesPanel(page);
         const profile = new profilePage(page);
-        //const immunization = new immunizationPage(page);
-        //const careTeam = new careTeamPage(page);
         const procedures = new proceduresPanel(page);
 
         try {
             await test.step('Login to application', async () => {
                 await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
+                //await expect(page).toHaveScreenshot('test.png');
             });
 
             await test.step('Search for member and test Procedures', async () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
-
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-
-                //verify data in Procedures panel:
-                //await procedures.verifyPorceduresData();
+                await procedures.verifyProceduresData();
             });
         } catch (err) {
             console.error('Test failed with error:', err);
