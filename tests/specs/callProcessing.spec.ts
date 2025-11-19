@@ -1,15 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
-import { memberDetailsPage } from '../pages/memberDetailsPage';
-
-import { profilePage } from '../pages/profilePage';
-
-import { activitiesPanel } from '../pages/memberHub/activities';
-//import { careManagementPanel } from '../pages/memberHub/careManagement';
-import { allergiesPanel } from '../pages/memberHub/allergies';
-
 import { TEST_DATA } from '../config/testData';
 import { callProcessingPanel } from '../pages/memberHub/callProcessing';
 
@@ -20,17 +12,8 @@ test.describe('STAGE - Call Processing Testing Suite', () => {
         // Initialize page objects:
         const login = new loginPage(page);
         const nav = new navigationPage(page);
-        //const eligibleTasks = new eligibleMemberTasks(page);
         const memberSearch = new memberSearchPage(page);
-        const memberDetails = new memberDetailsPage(page);
-        //const careManagement = new careManagementPanel(page);
-        const activities = new activitiesPanel(page);
-        const allergies = new allergiesPanel(page);
         const callProcessing = new callProcessingPanel(page);
-
-        const profile = new profilePage(page);
-        //const immunization = new immunizationPage(page);
-        //const careTeam = new careTeamPage(page);
 
         try {
             await test.step('Login to application', async () => {

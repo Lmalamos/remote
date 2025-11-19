@@ -27,7 +27,9 @@ test.describe('STAGE - Procedures Testing Suite', () => {
         try {
             await test.step('Login to application', async () => {
                 await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
-                //await expect(page).toHaveScreenshot('test.png');
+                
+                //await page.screenshot({ path: 'login.png' });
+                //await expect(page).toHaveScreenshot('login.png');
             });
 
             await test.step('Search for member and test Procedures', async () => {

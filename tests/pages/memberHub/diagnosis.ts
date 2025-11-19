@@ -21,10 +21,7 @@ export class diagnosisPanel {
         await this.page.getByLabel('Section').selectOption('Chapter 10. Diseases of the Respiratory System (J00-J99)');
         await this.page.getByLabel('Category', { exact: true }).selectOption('Other acute lower respiratory infections (J20-J22)');
         await this.page.getByRole('button', { name: 'Search', exact: true }).click();
-
-        //await this.page.getByRole('radio', { name: 'Choose J20 diagnosis' }).check();
         await this.page.getByRole('radio', { name: 'Diagnosis code J20', exact: true }).check();
-
         await this.page.getByTitle('Open Calender').click();
         await this.page.getByRole('link', { name: 'Search For Provider' }).click();
         await this.page.getByRole('textbox', { name: 'City' }).click();
@@ -40,11 +37,7 @@ export class diagnosisPanel {
         await this.page.getByRole('textbox', { name: 'Enter Full ICD Code' }).click();
         await this.page.getByRole('textbox', { name: 'Enter Full ICD Code' }).fill('Y00');
         await this.page.getByRole('button', { name: 'Search', exact: true }).click();
-
-        //await this.page.getByRole('radio', { name: 'Choose Y00 diagnosis' }).check();
-        //await this.page.getByRole('radio', { name: 'Choose Y00 diagnosis', exact: true }).check();
         await this.page.locator('input[type="radio"][value="296428"]').check();
-
         await this.page.getByTitle('Open Calender').click();
         await this.page.getByLabel('Main content area').getByText('Cancel').click();
         await this.page.getByRole('button', { name: 'Add Diagnosis' }).click();
@@ -52,11 +45,7 @@ export class diagnosisPanel {
         await this.page.getByRole('textbox', { name: 'Enter Full ICD Code' }).click();
         await this.page.getByRole('textbox', { name: 'Enter Full ICD Code' }).fill('r51');
         await this.page.getByRole('button', { name: 'Search', exact: true }).click();
-
-        //await this.page.getByRole('radio', { name: 'Choose R51 diagnosis', exact: true }).check();
-        //await this.page.getByRole('radio', { name: 'Choose R51 diagnosis', exact: true }).check();
         await this.page.locator('input[type="radio"][value="234696"]').check();
-
         await this.page.getByText('Submit', { exact: true }).click();
         await expect(this.page.getByText('There was an error, please')).toBeVisible();
         await expect(this.page.locator('#diagnosisMessages')).toContainText('There was an error, please review the fields below and try again.');

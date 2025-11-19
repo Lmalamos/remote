@@ -1,13 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
-import { memberDetailsPage } from '../pages/memberDetailsPage';
-
-import { profilePage } from '../pages/profilePage';
-
-import { activitiesPanel } from '../pages/memberHub/activities';
-
 import { TEST_DATA } from '../config/testData';
 import { resourceLibraryPanel } from '../pages/memberHub/resourceLibrary';
 
@@ -18,11 +12,7 @@ test.describe('STAGE - Resource Library Testing Suite', () => {
         // Initialize page objects:
         const login = new loginPage(page);
         const nav = new navigationPage(page);
-        //const eligibleTasks = new eligibleMemberTasks(page);
         const memberSearch = new memberSearchPage(page);
-        const memberDetails = new memberDetailsPage(page);
-        const activities = new activitiesPanel(page);
-        const profile = new profilePage(page);
         const resourceLibrary = new resourceLibraryPanel(page);
 
         try {
@@ -34,12 +24,9 @@ test.describe('STAGE - Resource Library Testing Suite', () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
-
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-
-                //verify data in Resource Library panel:
-                //await labs.verifyResourceLibraryData();
+                await resourceLibrary.verifyResourceLibraryData();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

@@ -1,15 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
-import { memberDetailsPage } from '../pages/memberDetailsPage';
-
-import { profilePage } from '../pages/profilePage';
-
-import { activitiesPanel } from '../pages/memberHub/activities';
-
 import { TEST_DATA } from '../config/testData';
-import { visitsPanel } from '../pages/memberHub/Visits';
+import { visitsPanel } from '../pages/memberHub/visits';
 
 test.describe('STAGE - Visits Testing Suite', () => {
     test('Complete Visits test flow', async ({ page }) => {
@@ -18,11 +12,7 @@ test.describe('STAGE - Visits Testing Suite', () => {
         // Initialize page objects:
         const login = new loginPage(page);
         const nav = new navigationPage(page);
-        //const eligibleTasks = new eligibleMemberTasks(page);
         const memberSearch = new memberSearchPage(page);
-        const memberDetails = new memberDetailsPage(page);
-        const activities = new activitiesPanel(page);
-        const profile = new profilePage(page);
         const visits = new visitsPanel(page);
 
         try {
@@ -34,12 +24,9 @@ test.describe('STAGE - Visits Testing Suite', () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
-
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-
-                //verify data in Visits panel:
-                //await visits.verifyVisitsData();
+                await visits.verifyVisitsData();
             });
         } catch (err) {
             console.error('Test failed with error:', err);
