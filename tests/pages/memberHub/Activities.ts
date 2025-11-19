@@ -15,10 +15,6 @@ export class activitiesPanel {
   readonly carePlanCaseAdd: Locator;
   readonly caseManagementLabel: Locator;
 
-  readonly numberOfEntriesDropDown: Locator;
-  readonly columnSelectionDropDown: Locator;
-  readonly activitiesSearchInput: Locator;
-
   constructor(page: Page) {
     this.page = page;
     
@@ -33,10 +29,6 @@ export class activitiesPanel {
     this.cancelButton = page.getByRole('button', { name: 'Cancel' });
     this.carePlanCaseAdd = page.locator('text=Care Plan Case Add');
     this.caseManagementLabel = page.locator('text=Case Management').first();
-
-    this.numberOfEntriesDropDown = page.locator('');
-    this.columnSelectionDropDown = page.locator('');
-    this.activitiesSearchInput = page.locator('');
   }
 
   async expandPanel() {

@@ -16,7 +16,6 @@ export class referralsPanel {
     }
 
     async verifyReferralsData() {
-        //await this.page.pause();
         await this.page.getByRole('button', { name: 'Referrals' }).click();
         await expect(this.page.getByText('No data available in table')).toBeVisible();
         await expect(this.page.getByRole('alert')).toContainText('No data available in table');
