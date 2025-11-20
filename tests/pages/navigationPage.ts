@@ -26,4 +26,12 @@ export class navigationPage {
     async openMemberSearch() {
         await this.page.locator('text=Member Search').click();
     }
+
+    async openProviderSearch() {
+        await this.page.locator('text=Provider Search').click();
+    }
+
+    async openCaseSearch() {
+        await this.page.locator('text=Case Search').click();
+    }
 }

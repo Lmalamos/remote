@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
@@ -11,7 +11,6 @@ import { TEST_DATA } from '../config/testData';
 
 test.describe('STAGE - Regression Testing Suite', () => {
     test('Complete regression test flow', async ({ page }) => {
-        //test.slow();
         test.setTimeout(500000);
 
         // Initialize page objects:

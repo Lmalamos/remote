@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
 import { navigationPage } from '../pages/navigationPage';
@@ -12,9 +12,9 @@ test.describe('Member Search Page Tests', () => {
         await login.verifyLogin();
 
         const navigation = new navigationPage(page);
-        navigation.goToDashboard();
-        navigation.openSearchMenu();
-        navigation.openMemberSearch();
+        await navigation.goToDashboard();
+        await navigation.openSearchMenu();
+        await navigation.openMemberSearch();
 
         const memberSearch = new memberSearchPage(page);
         await memberSearch.searchMember('Comprehensive - Test Client', 'COMPTEMP000000100423');
@@ -34,9 +34,9 @@ test.describe('Member Search Page Tests', () => {
         await login.verifyLogin();
 
         const navigation = new navigationPage(page);
-        navigation.goToDashboard();
-        navigation.openSearchMenu();
-        navigation.openMemberSearch();
+        await navigation.goToDashboard();
+        await navigation.openSearchMenu();
+        await navigation.openMemberSearch();
 
         const memberSearch = new memberSearchPage(page);
         await memberSearch.searchMember('Comprehensive - Test Client', '111111111');

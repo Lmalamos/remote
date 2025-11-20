@@ -27,6 +27,8 @@ test.describe('STAGE - DME Testing Suite', () => {
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
                 await dme.verifyDMEData();
+
+                //CRUD: create, read, update, delete
             });
             // await test.step('Search invalid DME', async () => {
 

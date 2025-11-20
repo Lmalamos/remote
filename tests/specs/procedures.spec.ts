@@ -1,13 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
-import { memberDetailsPage } from '../pages/memberDetailsPage';
-
-import { profilePage } from '../pages/profilePage';
-
-import { activitiesPanel } from '../pages/memberHub/activities';
-
 import { TEST_DATA } from '../config/testData';
 import { proceduresPanel } from '../pages/memberHub/procedures';
 
@@ -19,9 +13,6 @@ test.describe('STAGE - Procedures Testing Suite', () => {
         const login = new loginPage(page);
         const nav = new navigationPage(page);
         const memberSearch = new memberSearchPage(page);
-        const memberDetails = new memberDetailsPage(page);
-        const activities = new activitiesPanel(page);
-        const profile = new profilePage(page);
         const procedures = new proceduresPanel(page);
 
         try {
