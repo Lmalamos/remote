@@ -2,32 +2,31 @@ import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
 import { memberSearchPage } from '../pages/memberSearchPage';
-import { allergiesPanel } from '../pages/memberHub/allergies';
 import { TEST_DATA } from '../config/testData';
+import { careManagementPanel } from '../pages/memberHub/careManagement';
 
-test.describe('STAGE - Delete Allergies Testing Suite', () => {
-    test.skip('Delete Allergies test flow', async ({ page }) => {
-        test.setTimeout(50000000);
+test.describe('STAGE - Care Management Testing Suite', () => {
+    test('Complete Care Management test flow', async ({ page }) => {
+        test.setTimeout(500000);
 
+        // Initialize page objects:
         const login = new loginPage(page);
         const nav = new navigationPage(page);
         const memberSearch = new memberSearchPage(page);
-        const allergies = new allergiesPanel(page);
+        const careManagement = new careManagementPanel(page);
 
         try {
             await test.step('Login to application', async () => {
                 await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
             });
 
-            await test.step('Search for member and delete Allergies', async () => {
+            await test.step('Search for member and test Call Processing', async () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
                 await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
                 await memberSearch.openMemberHub(TEST_DATA.testMember.id);
-
-                //delete allergies through automation script:
-                await allergies.deleteAllergies();
+                await careManagement.verifyCareManagementData();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

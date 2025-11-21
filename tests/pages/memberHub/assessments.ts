@@ -45,6 +45,8 @@ export class assessmentsPanel {
         await popup.locator('text=Mold').highlight();
         await popup.waitForTimeout(1000);
         await expect(popup.locator('text=Mold')).toBeDisabled();
+
+        //await this.page.pause();
         
         await popup.mouse.wheel(0, 400);
         await popup.waitForTimeout(1000);

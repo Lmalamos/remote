@@ -2,8 +2,14 @@ import { expect, Locator, Page } from '@playwright/test';
 
 export class allergiesPanel {
   readonly page: Page;
-
-   readonly panelHeader: Locator;
+  
+  readonly panelHeader: Locator;
+  
+  //  readonly addButton: Locator;
+  //  readonly searchByTermButton: Locator;
+  //  readonly searchByCodeButton: Locator;
+  //  readonly notes: Locator;
+  //  readonly cancelButton: Locator;
 
   constructor(page: Page) {
     this.page = page;

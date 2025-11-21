@@ -46,6 +46,21 @@ test.describe('Member Search Page Tests', () => {
         //await memberSearch.verifyMemberHubLoads();
     });
 
+    test('Menu Options', async ({ page }) => {
+        const login = new loginPage(page);
+        await login.login('autosmoke', 'Playwright!1');
+        await login.verifyLogin();
+
+        //can be another spec file or can be here:
+        const navigation = new navigationPage(page);
+        await navigation.scheduledReports();
+        await navigation.coachingHub();
+        await navigation.messages();
+        await navigation.reports();
+        await navigation.knowledgeCenter();
+        await navigation.reportIssueToQualitracSupportTeam();
+    });
+
 });
 
 test.beforeEach(async ({ page }) => {
