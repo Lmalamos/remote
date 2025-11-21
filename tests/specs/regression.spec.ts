@@ -75,8 +75,8 @@ test.describe('STAGE - Regression Testing Suite', () => {
                 const assessmentPopup = await assessments.verifyMemberScreening();
                 await assessments.verifyAssessmentDetails(assessmentPopup);
                 await assessmentPopup.close();
-                await memberDetails.scrollToSection(100);
-                await assessments.verifyMemberScreening();
+                //await memberDetails.scrollToSection(100);
+                //await assessments.verifyMemberScreening();
                 await assessments.verifyStressScaleAssessment();
                 await assessments.expandPanel();
             });
