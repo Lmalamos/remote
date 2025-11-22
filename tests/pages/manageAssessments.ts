@@ -1,6 +1,6 @@
 import { test, expect, Locator, Page } from '@playwright/test';
 
-export class careManagementPanel {
+export class manageAssessments {
   readonly page: Page;
   
   readonly panelHeader: Locator;
@@ -37,7 +37,7 @@ export class careManagementPanel {
     await this.careTransitionsStatus.click();
   }
 
-  async verifyCareManagementData() {
+  async verifyManageAssessmentData() {
     await this.page.getByRole('button', { name: 'Care Management' }).click();
     await this.page.getByRole('button', { name: 'Case Management Active ' }).click();
     await this.page.getByRole('searchbox', { name: 'Search:' }).click();
