@@ -18,14 +18,9 @@ test.describe('Member Search Page Tests', () => {
 
         const memberSearch = new memberSearchPage(page);
         await memberSearch.searchMember('Comprehensive - Test Client', '1234567890', 'Jabroni', 'Junior', '', '03312022', '1111111111', 'kgillman@telligen.com', 'Self', 'Male', '', '', '1111');
-
-        //new option here to either select an existing member or create a new member:
-        if (await page.locator('#btnAddMemberModal').isVisible()) {
-            await memberSearch.searchMember('Comprehensive - Test Client', '1234567890', 'Jabroni', 'Junior', '', '03312022', '1111111111', 'kgillman@telligen.com', 'Self', 'Male', '', '', '1111');
-        } else {
-            await memberSearch.openMemberHub('COMP1234567890');
-            await memberSearch.verifyMemberHubLoads();
-        }
+        await memberSearch.verifySearchResults();
+        await memberSearch.openMemberHub('COMP1234567890');
+        await memberSearch.verifyMemberHubLoads();
     });
 
     test('Search for a Member using Invalid Search Criteria', async ({ page }) => {
@@ -73,7 +68,7 @@ test.describe('Member Search Page Tests', () => {
         await memberSearch.verifyErrorNameErrorMessage();
     });
 
-    test('Add Member', async ({ page }) => {
+    test.only('Add Member', async ({ page }) => {
         const login = new loginPage(page);
         await login.login('autosmoke', 'Playwright!1');
         await login.verifyLogin();
@@ -85,6 +80,7 @@ test.describe('Member Search Page Tests', () => {
 
         const memberSearch = new memberSearchPage(page);
         await memberSearch.searchMember('Comprehensive - Test Client', '111111110', 'Jabroni', 'Junior', '', '03312022', '1111111111', 'kgillman@telligen.com', 'Self', 'Male', '', '', '1111');
+        await memberSearch.verifyNoSearchResults();
         await memberSearch.addMember('Test', 'Tester', '01/01/2000', 'Male', '111-11-1111', '111111111', '100 Test Drive', 'Ames', 'IA', '50010', 'Comprehensive - Test Client');
         
         //can't do this until add member actually adds a member successfully:

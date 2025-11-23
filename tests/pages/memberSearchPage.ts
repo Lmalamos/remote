@@ -15,11 +15,57 @@ export class memberSearchPage {
         this.searchButton = page.locator('button:has-text("Search")');
     }
 
-    async searchMember(client: string, memberId: string) {
+    async searchMember(client: string, memberId: string, lastName: string, firstName: string, middleName: string, dob: string, phoneNumber: string, email: string, relationshipStatus: string, gender: string, maritalStatus: string, race: string, ssn: string) {
         await this.page.selectOption('select', { label: client });
         await this.page.fill('[placeholder="Member\\ ID"]', memberId);
+        await expect(this.page.locator('[placeholder="Member\\ ID"]')).toHaveValue(memberId);
+        await this.page.getByRole('textbox', { name: 'Last Name' }).fill(lastName);
+        await expect(this.page.getByRole('textbox', { name: 'Last Name' })).toHaveValue(lastName);
+        await this.page.getByRole('textbox', { name: 'First Name' }).fill(firstName);
+        await expect(this.page.getByRole('textbox', { name: 'First Name' })).toHaveValue(firstName);
+        await this.page.getByRole('textbox', { name: 'Middle Name' }).fill(middleName);
+        await expect(this.page.getByRole('textbox', { name: 'Middle Name' })).toHaveValue(middleName);
+        await this.page.getByRole('textbox', { name: 'Date Of Birth' }).fill(dob);
+        //await expect(this.page.getByRole('textbox', { name: 'Date Of Birth' })).toHaveValue(dob);
+        await this.page.getByRole('textbox', { name: 'Phone Number' }).fill(phoneNumber);
+        //await expect(this.page.getByRole('textbox', { name: 'Phone Number' })).toHaveValue(phoneNumber);
+        await this.page.getByRole('textbox', { name: 'Email' }).fill(email);
+        await expect(this.page.getByRole('textbox', { name: 'Email' })).toHaveValue(email);
+        await this.page.getByLabel('Relationship Status').selectOption(relationshipStatus);
+        //await expect(this.page.getByLabel('Relationship Status')).toHaveValue(relationshipStatus);
+        await this.page.getByRole('cell', { name: 'Gender' }).getByLabel('Gender').selectOption(gender);
+        //await expect(this.page.getByRole('cell', { name: 'Gender' })).toHaveValue(gender);
+        await this.page.getByRole('cell', { name: 'Marital Status' }).getByLabel('Marital Status').selectOption(maritalStatus);
+        //await expect(this.page.getByRole('cell', { name: 'Marital Status' })).toHaveValue(maritalStatus);
+        await this.page.getByRole('cell', { name: 'Race' }).getByLabel('Race').selectOption(race);
+        //await expect(this.page.getByRole('textbox', { name: 'Race' })).toHaveValue(race);
+        await this.page.getByRole('textbox', { name: 'SSN' }).fill(ssn);
+        //await expect(this.page.getByRole('textbox', { name: 'SSN' })).toHaveValue(ssn);
         await this.page.click('button:has-text("Search")');
-        //await this.page.waitForLoadState('networkidle');
+    }
+
+    async verifySearchResults() {
+        const rows = this.page.locator('#advancedMemberSearchMemberTableBody');
+        await expect(rows).toHaveCount(1);
+    }
+
+    async verifyNoSearchResults() {
+        await expect(this.page.getByRole('heading', { name: 'Member Not Found.' })).toBeVisible();
+        await expect(this.page.locator('h3')).toContainText('Member Not Found.');
+        await expect(this.page.getByRole('button', { name: ' Add Member' })).toBeVisible();
+        await expect(this.page.locator('#btnAddMemberModal')).toContainText('Add Member');
+    }
+
+    async verifySearchCriteriaErrorMessage() {
+        await expect(this.page.locator('.snackbar.error.show')).toContainText('You must provide search criteria in order to continue');
+    }
+
+    async verifyMemberIdLengthErrorMessage() {
+        await expect(this.page.locator('.snackbar.error.show')).toContainText('Member Id must carry at least 3 characters');
+    }
+
+    async verifyErrorNameErrorMessage() {
+        await expect(this.page.locator('.snackbar.error.show')).toContainText('You must provide one of: Member Id, First Name, Last Name, Date of Birth, Phone Number, Email, SSN');
     }
 
     async addMember(firstName: string, lastName: string, birthDate: string, gender: string, ssn: string, memberId: string, address: string, city: string, state: string, zip: string, client: string) {

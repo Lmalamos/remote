@@ -32,8 +32,9 @@ test.describe('STAGE - Smoke Testing Suite', () => {
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
 
-                await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
-                await memberSearch.openMemberHub(TEST_DATA.testMember.id);
+                await memberSearch.searchMember('Comprehensive - Test Client', '1234567890', 'Jabroni', 'Junior', '', '03312022', '1111111111', 'kgillman@telligen.com', 'Self', 'Male', '', '', '1111');;
+                await memberSearch.verifySearchResults();
+                await memberSearch.openMemberHub('COMP1234567890');
 
                 await immunization.addImmunization('tetanus');
                 await immunization.verifyImmunization();
@@ -44,8 +45,9 @@ test.describe('STAGE - Smoke Testing Suite', () => {
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
 
-                await memberSearch.searchMember(TEST_DATA.testMember.client, TEST_DATA.testMember.id);
-                await memberSearch.openMemberHub(TEST_DATA.testMember.id);
+                await memberSearch.searchMember('Comprehensive - Test Client', '1234567890', 'Jabroni', 'Junior', '', '03312022', '1111111111', 'kgillman@telligen.com', 'Self', 'Male', '', '', '1111');;
+                await memberSearch.verifySearchResults();
+                await memberSearch.openMemberHub('COMP1234567890');
 
                 //await careTeam.addCareTeam('test');
                 //await careTeam.verifyCareTeam();
