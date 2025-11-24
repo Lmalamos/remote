@@ -1,7 +1,6 @@
 import { test } from '@playwright/test';
 import { loginPage } from '../pages/loginPage';
 import { navigationPage } from '../pages/navigationPage';
-import { memberSearchPage } from '../pages/memberSearchPage';
 import { manageBusinessRules } from '../pages/manageBusinessRules';
 //import { TEST_DATA } from '../config/testData';
 
@@ -11,12 +10,10 @@ test.describe('STAGE - Manage Business Rules Testing Suite', () => {
 
         const login = new loginPage(page);
         const nav = new navigationPage(page);
-        const memberSearch = new memberSearchPage(page);
         const manageBusinessRule = new manageBusinessRules(page);
 
         try {
             await test.step('Login to application', async () => {
-                //await login.login(TEST_DATA.credentials.username, TEST_DATA.credentials.password);
                 await login.login('testom', 'Password01!');
             });
 
@@ -24,7 +21,8 @@ test.describe('STAGE - Manage Business Rules Testing Suite', () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
-                await nav.openManageBusinessRules();
+                await nav.openManageDropdown();
+                await manageBusinessRule.manageBusinessRules();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

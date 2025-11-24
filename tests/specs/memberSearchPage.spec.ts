@@ -68,7 +68,7 @@ test.describe('Member Search Page Tests', () => {
         await memberSearch.verifyErrorNameErrorMessage();
     });
 
-    test.only('Add Member', async ({ page }) => {
+    test('Add Member', async ({ page }) => {
         const login = new loginPage(page);
         await login.login('autosmoke', 'Playwright!1');
         await login.verifyLogin();

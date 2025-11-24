@@ -1,0 +1,39 @@
+import { test } from '@playwright/test';
+import { loginPage } from '../pages/loginPage';
+import { navigationPage } from '../pages/navigationPage';
+import { manageCertifiedMail } from '../pages/manageCertifiedMail';
+//import { TEST_DATA } from '../config/testData';
+
+test.describe('STAGE - Manage Certified Mail Testing Suite', () => {
+    test('Complete Certified Mail test flow', async ({ page }) => {
+        test.setTimeout(500000);
+
+        const login = new loginPage(page);
+        const nav = new navigationPage(page);
+        const manageCertifiedMails = new manageCertifiedMail(page);
+
+        try {
+            await test.step('Login to application', async () => {
+                await login.login('testom', 'Password01!');
+            });
+
+            await test.step('Test Manage Business Rules', async () => {
+                await nav.goToDashboard();
+                await nav.openSearchMenu();
+                await nav.openMemberSearch();
+                await nav.openManageDropdown();
+                await manageCertifiedMails.manageCertifiedMail();
+            });
+        } catch (err) {
+            console.error('Test failed with error:', err);
+            throw err;
+        } finally {
+            await page.close();
+        }
+    });
+});
+
+test.beforeEach(async ({ page }) => {
+    const login = new loginPage(page);
+    await login.goto();
+});
