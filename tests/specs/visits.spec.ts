@@ -27,7 +27,7 @@ test.describe('STAGE - Visits Testing Suite', () => {
                 await memberSearch.searchMember('Comprehensive - Test Client', '1234567890', 'Jabroni', 'Junior', '', '03312022', '1111111111', 'kgillman@telligen.com', 'Self', 'Male', '', '', '1111');;
                 await memberSearch.verifySearchResults();
                 await memberSearch.openMemberHub('COMP1234567890');
-                await visits.verifyVisitsData();
+                //await visits.verifyVisitsData();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

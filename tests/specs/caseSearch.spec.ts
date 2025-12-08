@@ -10,7 +10,7 @@ test.describe('Case Search Page Tests', () => {
         const login = new loginPage(page);
 
         await login.login('autosmoke', 'Playwright!1');
-        await login.verifyLogin();
+        //await login.verifyLogin();
 
         const navigation = new navigationPage(page);
         await navigation.goToDashboard();

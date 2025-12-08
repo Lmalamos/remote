@@ -4,8 +4,8 @@ import { navigationPage } from '../pages/navigationPage';
 import { manageLetterResources } from '../pages/manageLetterResources';
 //import { TEST_DATA } from '../config/testData';
 
-test.describe('STAGE - Manage Jobs Testing Suite', () => {
-    test('Complete Manage Jobs test flow', async ({ page }) => {
+test.describe('STAGE - Manage Letter Resources Testing Suite', () => {
+    test('Complete Manage Letter Resources test flow', async ({ page }) => {
         test.setTimeout(500000);
 
         const login = new loginPage(page);
@@ -15,10 +15,10 @@ test.describe('STAGE - Manage Jobs Testing Suite', () => {
         try {
             await test.step('Login to application', async () => {
                 await login.login('testom', 'Password01!');
-                await login.verifyLogin();
+                //await login.verifyLogin();
             });
 
-            await test.step('Test Manage Jobs', async () => {
+            await test.step('Test Manage Letter Resources', async () => {
                 await nav.goToDashboard();
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();

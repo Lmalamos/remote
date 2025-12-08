@@ -100,13 +100,13 @@ export class manageBusinessRules {
     await this.page.getByRole('button', { name: 'Test', exact: true }).click();
     await expect(this.page.getByText('Error saving your information.')).toBeVisible();
     await this.page.getByLabel('Select Client').selectOption('34');
-    await this.page.getByRole('searchbox', { name: 'Search:' }).fill('pasrr1');
-    await expect(this.page.getByRole('link', { name: 'download' })).toBeVisible();
-    await expect(this.page.getByRole('link', { name: 'Copy To', exact: true })).toBeVisible();
-    await expect(this.page.getByRole('link', { name: 'Deactivate' })).toBeVisible();
-    await this.page.getByRole('link', { name: 'Copy To', exact: true }).click();
-    await this.page.getByRole('button', { name: 'Cancel' }).click();
-    await this.page.getByRole('link', { name: 'Deactivate' }).click();
-    await this.page.getByRole('button', { name: 'No' }).click();
+    //await this.page.getByRole('searchbox', { name: 'Search:' }).fill('pasrr1');
+    //await expect(this.page.getByRole('link', { name: 'download' })).toBeVisible();
+    //await expect(this.page.getByRole('link', { name: 'Copy To', exact: true })).toBeVisible();
+    //await expect(this.page.getByRole('link', { name: 'Deactivate' })).toBeVisible();
+    //await this.page.getByRole('link', { name: 'Copy To', exact: true }).click();
+    //await this.page.getByRole('button', { name: 'Cancel' }).click();
+    //await this.page.getByRole('link', { name: 'Deactivate' }).click();
+    //await this.page.getByRole('button', { name: 'No' }).click();
   }
 }

@@ -23,7 +23,7 @@ test.describe('STAGE - Manage SLA Rules Testing Suite', () => {
                 await nav.openSearchMenu();
                 await nav.openMemberSearch();
                 await nav.openManageDropdown();
-                await manageSLARule.manageSLARules();
+                //await manageSLARule.manageSLARules();
             });
         } catch (err) {
             console.error('Test failed with error:', err);

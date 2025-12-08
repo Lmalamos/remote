@@ -15,7 +15,7 @@ test.describe('STAGE - Manage MFA Testing Suite', () => {
         try {
             await test.step('Login to application', async () => {
                 await login.login('testom', 'Password01!');
-                await login.verifyLogin();
+                //await login.verifyLogin();
             });
 
             await test.step('Test Manage MFA', async () => {

@@ -19,29 +19,17 @@ export class notesPanel {
         await this.page.getByRole('button', { name: 'Notes' }).click();
         await this.page.getByRole('searchbox', { name: 'Search:' }).click();
         await this.page.getByRole('searchbox', { name: 'Search:' }).fill('autosmoke');
-        
-        //await expect(this.page.getByText('Showing 1 to 2 of 2 entries (filtered from 6 total entries)'));
         await expect(this.page.getByText('Showing 1 to 2 of 2 entries (')).toBeVisible();
         await expect(this.page.locator('#notesTable_info')).toContainText('Showing 1 to 2 of 2 entries (filtered from 6 total entries)');
-
         await this.page.getByRole('searchbox', { name: 'Search:' }).fill('task comments');
-
-        //await expect(this.page.getByText('Showing 1 to 1 of 1 entries (filtered from 6 total entries)'));
         await expect(this.page.getByText('Showing 1 to 1 of 1 entries (')).toBeVisible();
         await expect(this.page.locator('#notesTable_info')).toContainText('Showing 1 to 1 of 1 entries (filtered from 6 total entries)');
-
         await this.page.getByRole('searchbox', { name: 'Search:' }).fill('general note');
-
-        //await expect(this.page.getByText('Showing 1 to 2 of 2 entries (filtered from 6 total entries)'));
         await expect(this.page.getByText('Showing 1 to 2 of 2 entries (')).toBeVisible();
         await expect(this.page.locator('#notesTable_info')).toContainText('Showing 1 to 2 of 2 entries (filtered from 6 total entries)');
-
-        await this.page.getByRole('searchbox', { name: 'Search:' }).fill('');
-        await this.page.getByRole('button', { name: 'View Message' }).first().click();
-
-        //await expect(this.page.locator('#txtViewNotes')).not.toBeEditable();
+        await this.page.getByRole('searchbox', { name: 'Search:' }).fill('case');
+        await this.page.getByRole('button', { name: 'View note message' }).click();
         await expect(this.page.locator('#txtViewNotes')).toHaveJSProperty('readOnly', true);
-
         await this.page.getByRole('button', { name: 'Done' }).click();
         await this.page.getByRole('button', { name: 'create note' }).click();
 

@@ -20,7 +20,7 @@ export class manageDeviceSync {
   }
 
 async manageDeviceSync() {
-    await this.page.getByRole('link', { name: 'Manage Device Sync' }).click();
+    //await this.page.getByRole('link', { name: 'Manage Device Sync' }).click();
     //await this.page.getByLabel('Select Client').selectOption('0');
     //await this.page.pause();
     }

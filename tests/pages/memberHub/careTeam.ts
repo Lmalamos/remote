@@ -41,7 +41,7 @@ export class careTeamPanel {
         await this.page.getByRole('textbox', { name: 'Zip Code' }).fill('50010');
         await this.page.getByRole('button', { name: 'Search', exact: true }).click();
         await this.page.getByRole('button', { name: 'Cancel' }).click();
-        await this.page.getByRole('button', { name: '' }).click();
+        await this.page.getByTitle('Add Primary Care Physician').click();
         await this.page.getByRole('button', { name: 'No', exact: true }).click();
         await this.page.getByText('Primary Care Physician', { exact: true }).click();
 
@@ -82,8 +82,6 @@ export class careTeamPanel {
 
         //ADD OTHER PROVIDERS:
         await this.page.getByText('Other Providers', { exact: true }).click();
-        await this.page.getByRole('button', { name: '' }).nth(2).click();
-        await this.page.getByRole('button', { name: 'No', exact: true }).click();
         await this.page.getByTitle('Add Other Provider').click();
         await this.page.getByRole('textbox', { name: 'City' }).click();
         await this.page.getByRole('textbox', { name: 'City' }).fill('Ames');
