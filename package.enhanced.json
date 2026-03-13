@@ -1,0 +1,89 @@
+{
+  "name": "playwright-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive Playwright test suite with Phase 1-4 enhancements",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+
+    "test:stage": "TEST_ENV=stage playwright test",
+    "test:prod": "TEST_ENV=prod playwright test",
+    "test:local": "TEST_ENV=local playwright test",
+
+    "test:smoke": "playwright test --grep @smoke",
+    "test:smoke:stage": "TEST_ENV=stage playwright test --grep @smoke",
+    "test:smoke:prod": "TEST_ENV=prod playwright test --grep @smoke",
+
+    "test:regression": "playwright test --grep @regression",
+    "test:regression:fast": "playwright test --grep \"@regression.*@fast\"",
+
+    "test:api": "playwright test --grep @api --project=api",
+    "test:api:member": "playwright test --grep @api-member",
+    "test:api:provider": "playwright test --grep @api-provider",
+
+    "test:visual": "playwright test --grep @visual --project=visual-chrome",
+    "test:visual:update": "playwright test --grep @visual --project=visual-chrome --update-snapshots",
+
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project=mobile-chrome --project=mobile-safari",
+
+    "test:critical": "playwright test --grep @p0",
+    "test:p0": "playwright test --grep @p0",
+    "test:p1": "playwright test --grep @p1",
+
+    "test:fast": "playwright test --grep @fast",
+    "test:slow": "playwright test --grep @slow",
+
+    "test:stable": "playwright test --grep @stable",
+    "test:flaky": "playwright test --grep @flaky",
+
+    "test:parallel": "playwright test --workers=4",
+    "test:serial": "playwright test --workers=1",
+
+    "test:shard": "playwright test --shard",
+    "test:shard:1": "playwright test --shard=1/4",
+    "test:shard:2": "playwright test --shard=2/4",
+    "test:shard:3": "playwright test --shard=3/4",
+    "test:shard:4": "playwright test --shard=4/4",
+
+    "test:ci": "CI=true playwright test --project=chromium --grep \"@smoke|@p0\"",
+    "test:ci:full": "CI=true playwright test",
+
+    "test:member-hub": "playwright test --grep @member-hub",
+    "test:auth": "playwright test --grep @auth",
+    "test:admin": "playwright test --grep @admin",
+
+    "test:tagged": "playwright test --grep",
+
+    "report": "playwright show-report",
+    "report:html": "playwright show-report playwright-report",
+    "report:json": "cat test-results/custom-report.json",
+
+    "codegen": "playwright codegen",
+    "codegen:stage": "TEST_ENV=stage playwright codegen",
+
+    "install:browsers": "playwright install",
+    "install:deps": "playwright install-deps",
+
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint tests --ext .ts",
+    "format": "prettier --write \"tests/**/*.ts\"",
+
+    "clean": "rm -rf test-results playwright-report allure-results",
+    "clean:snapshots": "rm -rf tests/**/*-snapshots",
+
+    "pretest": "npm run typecheck"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "e2e",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC"
+}
