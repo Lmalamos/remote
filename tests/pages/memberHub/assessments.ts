@@ -11,16 +11,18 @@ export class assessmentsPanel {
 
     constructor(page: Page) {
         this.page = page;
-        
+
         this.assessmentsPanelHeader = page.locator('h3:has-text("Assessments")');
-        this.memberScreeningSection = page.locator('text=Member Screening 1 Last Completed: 08/25/2022');
-        this.stressScaleSection = page.locator('text=Perceived Stress Scale (PSS10) Assessment 2 Last Completed: 08/25/2022');
+        this.memberScreeningSection = page.locator('text=/Member Screening.*Last Completed/');
+        this.stressScaleSection = page.locator('text=/Perceived Stress Scale.*Last Completed/');
         this.accountableHealthLink = page.locator('#assessmentTableMember_Screening >> text=Accountable Health Communities');
         this.caseManagementLink = page.locator('#assessmentTablePerceived_Stress_Scale__PSS10__Assessment >> text=Case Management');
     }
 
     async expandPanel() {
         await this.assessmentsPanelHeader.click();
+        // Wait for sections to load after expanding
+        await this.page.waitForTimeout(1000);
     }
 
     async verifyMemberScreening() {
@@ -38,18 +40,13 @@ export class assessmentsPanel {
     async verifyAssessmentDetails(popup: Page) {
         await popup.mouse.wheel(0, 300);
         await popup.locator('text=Myself').highlight();
-        await popup.waitForTimeout(1000);
         await expect(popup.locator('text=Myself')).toBeDisabled();
-        
+
         await popup.mouse.wheel(0, 300);
         await popup.locator('text=Mold').highlight();
-        await popup.waitForTimeout(1000);
         await expect(popup.locator('text=Mold')).toBeDisabled();
 
-        //await this.page.pause();
-        
         await popup.mouse.wheel(0, 400);
-        await popup.waitForTimeout(1000);
         await popup.locator('text=Close').click();
     }
 

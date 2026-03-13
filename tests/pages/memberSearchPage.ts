@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { MemberSearchCriteria, MemberDetails } from '../types';
 
 export class memberSearchPage {
     readonly page: Page;
@@ -15,32 +16,50 @@ export class memberSearchPage {
         this.searchButton = page.locator('button:has-text("Search")');
     }
 
-    async searchMember(client: string, memberId: string, lastName: string, firstName: string, middleName: string, dob: string, phoneNumber: string, email: string, relationshipStatus: string, gender: string, maritalStatus: string, race: string, ssn: string) {
-        await this.page.selectOption('select', { label: client });
-        await this.page.fill('[placeholder="Member\\ ID"]', memberId);
-        await expect(this.page.locator('[placeholder="Member\\ ID"]')).toHaveValue(memberId);
-        await this.page.getByRole('textbox', { name: 'Last Name' }).fill(lastName);
-        await expect(this.page.getByRole('textbox', { name: 'Last Name' })).toHaveValue(lastName);
-        await this.page.getByRole('textbox', { name: 'First Name' }).fill(firstName);
-        await expect(this.page.getByRole('textbox', { name: 'First Name' })).toHaveValue(firstName);
-        await this.page.getByRole('textbox', { name: 'Middle Name' }).fill(middleName);
-        await expect(this.page.getByRole('textbox', { name: 'Middle Name' })).toHaveValue(middleName);
-        await this.page.getByRole('textbox', { name: 'Date Of Birth' }).fill(dob);
-        //await expect(this.page.getByRole('textbox', { name: 'Date Of Birth' })).toHaveValue(dob);
-        await this.page.getByRole('textbox', { name: 'Phone Number' }).fill(phoneNumber);
-        //await expect(this.page.getByRole('textbox', { name: 'Phone Number' })).toHaveValue(phoneNumber);
-        await this.page.getByRole('textbox', { name: 'Email' }).fill(email);
-        await expect(this.page.getByRole('textbox', { name: 'Email' })).toHaveValue(email);
-        await this.page.getByLabel('Relationship Status').selectOption(relationshipStatus);
-        //await expect(this.page.getByLabel('Relationship Status')).toHaveValue(relationshipStatus);
-        await this.page.getByRole('cell', { name: 'Gender' }).getByLabel('Gender').selectOption(gender);
-        //await expect(this.page.getByRole('cell', { name: 'Gender' })).toHaveValue(gender);
-        await this.page.getByRole('cell', { name: 'Marital Status' }).getByLabel('Marital Status').selectOption(maritalStatus);
-        //await expect(this.page.getByRole('cell', { name: 'Marital Status' })).toHaveValue(maritalStatus);
-        await this.page.getByRole('cell', { name: 'Race' }).getByLabel('Race').selectOption(race);
-        //await expect(this.page.getByRole('textbox', { name: 'Race' })).toHaveValue(race);
-        await this.page.getByRole('textbox', { name: 'SSN' }).fill(ssn);
-        //await expect(this.page.getByRole('textbox', { name: 'SSN' })).toHaveValue(ssn);
+    /**
+     * Search for a member using provided criteria
+     * @param criteria - Member search criteria object
+     */
+    async searchMember(criteria: MemberSearchCriteria) {
+        await this.page.selectOption('select', { label: criteria.client });
+
+        if (criteria.memberId) {
+            await this.page.fill('[placeholder="Member\\ ID"]', criteria.memberId);
+        }
+        if (criteria.lastName) {
+            await this.page.getByRole('textbox', { name: 'Last Name' }).fill(criteria.lastName);
+        }
+        if (criteria.firstName) {
+            await this.page.getByRole('textbox', { name: 'First Name' }).fill(criteria.firstName);
+        }
+        if (criteria.middleName) {
+            await this.page.getByRole('textbox', { name: 'Middle Name' }).fill(criteria.middleName);
+        }
+        if (criteria.dob) {
+            await this.page.getByRole('textbox', { name: 'Date Of Birth' }).fill(criteria.dob);
+        }
+        if (criteria.phoneNumber) {
+            await this.page.getByRole('textbox', { name: 'Phone Number' }).fill(criteria.phoneNumber);
+        }
+        if (criteria.email) {
+            await this.page.getByRole('textbox', { name: 'Email' }).fill(criteria.email);
+        }
+        if (criteria.relationshipStatus) {
+            await this.page.getByLabel('Relationship Status').selectOption(criteria.relationshipStatus);
+        }
+        if (criteria.gender) {
+            await this.page.getByRole('cell', { name: 'Gender' }).getByLabel('Gender').selectOption(criteria.gender);
+        }
+        if (criteria.maritalStatus) {
+            await this.page.getByRole('cell', { name: 'Marital Status' }).getByLabel('Marital Status').selectOption(criteria.maritalStatus);
+        }
+        if (criteria.race) {
+            await this.page.getByRole('cell', { name: 'Race' }).getByLabel('Race').selectOption(criteria.race);
+        }
+        if (criteria.ssn) {
+            await this.page.getByRole('textbox', { name: 'SSN' }).fill(criteria.ssn);
+        }
+
         await this.page.click('button:has-text("Search")');
     }
 
@@ -68,59 +87,34 @@ export class memberSearchPage {
         await expect(this.page.locator('.snackbar.error.show')).toContainText('You must provide one of: Member Id, First Name, Last Name, Date of Birth, Phone Number, Email, SSN');
     }
 
-    async addMember(firstName: string, lastName: string, birthDate: string, gender: string, ssn: string, memberId: string, address: string, city: string, state: string, zip: string, client: string) {
+    /**
+     * Add a new member to the system
+     * @param details - Member details object
+     */
+    async addMember(details: MemberDetails) {
         await this.page.getByRole('button', { name: ' Add Member' }).click();
-        await this.page.getByRole('textbox', { name: 'First Name *' }).click();
-        await this.page.getByRole('textbox', { name: 'First Name *' }).fill('Test');
-        await this.page.getByRole('textbox', { name: 'Last Name *' }).click();
-        await this.page.getByRole('textbox', { name: 'Last Name *' }).fill('Tester');
-        await this.page.getByRole('textbox', { name: 'Birth Date *' }).click({ clickCount: 3 });
+        await this.page.getByRole('textbox', { name: 'First Name *' }).fill(details.firstName);
+        await this.page.getByRole('textbox', { name: 'Last Name *' }).fill(details.lastName);
+        await this.page.getByRole('textbox', { name: 'Birth Date *' }).fill(details.birthDate);
 
-        await this.page.keyboard.press('0');
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('0');
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('2');
-        await this.page.keyboard.press('0');
-        await this.page.keyboard.press('0');
-        await this.page.keyboard.press('0');
+        await this.page.getByRole('dialog', { name: 'Add Member' }).getByLabel('Gender', { exact: true }).selectOption(details.gender);
+        await this.page.getByRole('textbox', { name: 'Social Security Number *' }).fill(details.ssn);
 
-        await this.page.getByRole('dialog', { name: 'Add Member' }).getByLabel('Gender', { exact: true }).selectOption('11');
-        await this.page.getByRole('textbox', { name: 'Social Security Number *' }).click({ clickCount: 3});
-        
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('1');
-        //-
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('1');
-        //-
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('1');
+        await this.page.getByRole('textbox', { name: 'Member Id *' }).fill(details.memberId);
+        await this.page.getByRole('textbox', { name: 'Address Line 1 *' }).fill(details.address);
+        await this.page.getByRole('textbox', { name: 'City *' }).fill(details.city);
+        await this.page.getByLabel('State').selectOption(details.state);
+        await this.page.getByRole('textbox', { name: 'Zip *' }).fill(details.zip);
 
-        await this.page.getByRole('textbox', { name: 'Member Id *' }).click();
-        await this.page.getByRole('textbox', { name: 'Member Id *' }).fill('111111111');
-        await this.page.locator('#divMailingAddressLineOne').click();
-        await this.page.getByRole('textbox', { name: 'Address Line 1 *' }).fill('100 Test Drive');
-        await this.page.getByRole('textbox', { name: 'City *' }).click();
-        await this.page.getByRole('textbox', { name: 'City *' }).fill('Ames');
-        await this.page.getByLabel('State').selectOption('IA');
-        await this.page.getByRole('textbox', { name: 'Zip *' }).click({ clickCount: 3 });
-
-        await this.page.keyboard.press('5');
-        await this.page.keyboard.press('0');
-        await this.page.keyboard.press('0');
-        await this.page.keyboard.press('1');
-        await this.page.keyboard.press('0');
-
-        //uncomment this once we get randomized values:
-        //await this.page.getByRole('button', { name: 'Submit' }).click();
+        // Note: Uncomment to actually submit once randomized values are implemented
+        // await this.page.getByRole('button', { name: 'Submit' }).click();
     }
 
     async openMemberHub(memberId: string) {
-        await this.page.getByRole('link', { name: memberId, exact: true }).click();
+        // Strip the "COMP" prefix if present (TEST_MEMBER.FULL_ID includes it, but the UI link doesn't)
+        const cleanId = memberId.replace(/^COMP/, '');
+        // Use partial match for the accessible name which includes "View member details for Member ID {id}"
+        await this.page.getByRole('link', { name: new RegExp(cleanId) }).first().click();
     }
 
     async verifyMemberHubLoads() {

@@ -4,20 +4,47 @@ export class allergiesPanel {
   readonly page: Page;
   
   readonly panelHeader: Locator;
-  
-  //  readonly addButton: Locator;
-  //  readonly searchByTermButton: Locator;
-  //  readonly searchByCodeButton: Locator;
-  //  readonly notes: Locator;
-  //  readonly cancelButton: Locator;
+  readonly existingAllergyResults: Locator;
+  readonly showAllButton: Locator;
+  readonly deleteButton: Locator;
+  readonly addButton: Locator;
+  readonly searchByTermButton: Locator;
+  readonly searchByCodeButton: Locator;
+  readonly identificationDate: Locator;
+  readonly searchButton: Locator;
+  readonly searchInput: Locator;
+  readonly newAllergyResult: Locator;
+  readonly allergyNotes: Locator;
+  readonly cancelButton: Locator;
+  readonly submitButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
 
-     this.panelHeader = this.page.locator('h3:has-text("Allergies")');
+    this.panelHeader = page.locator('h3:has-text("Allergies")');
+    this.existingAllergyResults = page.locator('#ALLERGY_DETAIL_TABLE');
+    this.showAllButton = page.getByRole('button', { name: 'Show All' });
+    this.deleteButton = page.locator('.fa.fa-trash-o');
+    this.addButton = page.getByRole('button', { name: 'Add' });
+    this.searchByTermButton = page.getByRole('tab', { name: 'Search by Term' });
+    this.searchByCodeButton = page.getByRole('tab', { name: 'Search by Code' });
+    this.identificationDate = page.locator('input[name="identificationDate"]');
+    this.searchButton = page.locator('#allergySearchByTermButton');
+    this.searchInput = page.getByRole('textbox', { name: 'Enter Search Term' });
+    this.newAllergyResult = page.locator('input[type="radio"]').first();
+    this.allergyNotes = page.getByRole('textbox', { name: 'Notes' });
+    this.cancelButton = page.getByRole('button', { name: 'Cancel' });
+    this.submitButton = page.getByRole('button', { name: 'Submit', exact: true });
 }
 
   async expandPanel() {
+    await this.panelHeader.click();
+    await this.page.waitForTimeout(500);
+  }
+
+  async waitForSearchResults() {
+    // Wait for search results to load
+    await this.page.waitForSelector('input[type="radio"]', { timeout: 10000 });
   }
 
   async verifyAllergiesList() {
@@ -39,13 +66,20 @@ export class allergiesPanel {
   }
 
   async verifyAllergiesData(allergy1: string, allergy2: string, allergy3: string) {
-    await this.page.getByRole('button', { name: 'Allergies' }).click();
-    await this.page.getByRole('button', { name: 'Add' }).click();
-    await this.page.getByRole('textbox', { name: 'Enter Search Term' }).click();
-    await this.page.getByRole('textbox', { name: 'Enter Search Term' }).fill('dog');
+    //await this.page.getByRole('button', { name: 'Allergies' }).click();
+    await this.panelHeader.click();
+
+    //await this.page.getByRole('button', { name: 'Add' }).click();
+    await this.addButton.click();
+
+    //await this.page.getByRole('textbox', { name: 'Enter Search Term' }).click();
+    //await this.page.getByRole('textbox', { name: 'Enter Search Term' }).fill('dog');
+    await this.searchInput.fill('dog');
 
     //await this.page.getByRole('button', { name: ' Search' }).first().click();
-    await this.page.getByRole('button', { name: 'Search', exact: true }).click();
+    //await this.page.getByRole('button', { name: 'Search', exact: true }).click();
+    await this.searchButton.click();
+    
 
     //await this.page.getByRole('radio', { name: 'Radio button' }).check();
     await this.page.getByRole('radio', { name: 'Select (SNOMED)' }).check();
