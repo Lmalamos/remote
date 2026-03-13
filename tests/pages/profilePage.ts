@@ -1,4 +1,5 @@
 import { test, expect, Locator, Page } from '@playwright/test';
+import { UserProfile } from '../types';
 
 export class profilePage {
     readonly page: Page;
@@ -25,44 +26,41 @@ export class profilePage {
         this.saveButton = page.locator('button:has-text("Save")');
     }
 
-    async editProfile(firstName: string, middleName: string, lastName: string, email: string, phoneNumber: string) {
+    /**
+     * Edit user profile information
+     * @param profile - User profile data object
+     */
+    async editProfile(profile: UserProfile) {
         await this.userProfileHeader.click();
         await this.myProfileLink.click();
 
-        await this.firstNameInput.click({ clickCount: 4 });
-        await this.firstNameInput.fill(firstName);
-        await expect(this.page.locator('input[name="firstName"]')).toHaveValue(firstName);
-
-        await this.middleNameInput.fill(middleName);
-        await expect(this.page.locator('input[name="middleName"]')).toHaveValue(middleName);
-
-        await this.lastNameInput.fill(lastName);
-        await expect(this.page.locator('input[name="lastName"]')).toHaveValue(lastName);
-
-        await this.emailInput.fill(email);
-        await expect(this.page.locator('[placeholder="username\\@example\\.com"]')).toHaveValue(email);
-
-        await this.phoneNumberInput.click({ clickCount: 4 });
-        await this.phoneNumberInput.fill(phoneNumber);
-
-        //await expect(this.page.locator('input[name="phoneNumber"]')).toHaveValue(phoneNumber );
-        await expect(this.page.locator('input[name="phoneNumber"]')).toHaveValue('(' + phoneNumber[0] + phoneNumber[1] + phoneNumber[2] + ') ' + phoneNumber[3] + phoneNumber[4] + phoneNumber[5] + '-' + phoneNumber[6] + phoneNumber[7] + phoneNumber[8] + phoneNumber[9]);
+        await this.firstNameInput.clear();
+        await this.firstNameInput.fill(profile.firstName);
+        await this.middleNameInput.fill(profile.middleName);
+        await this.lastNameInput.fill(profile.lastName);
+        await this.emailInput.fill(profile.email);
+        await this.phoneNumberInput.clear();
+        await this.phoneNumberInput.fill(profile.phoneNumber);
 
         await this.saveButton.click();
     }
 
-    //maybe have assertions in the editProfile() function?:
-    async verifyProfile(firstName: string, middleName: string, lastName: string, email: string, phoneNumber: string) {
+    /**
+     * Verify user profile information
+     * @param profile - Expected user profile data
+     */
+    async verifyProfile(profile: UserProfile) {
         await this.userProfileHeader.click();
         await this.myProfileLink.click();
 
-        await expect(this.page.locator('input[name="firstName"]')).toHaveValue(firstName);
-        await expect(this.page.locator('input[name="middleName"]')).toHaveValue(middleName);
-        await expect(this.page.locator('input[name="lastName"]')).toHaveValue(lastName);
-        await expect(this.page.locator('[placeholder="username\\@example\\.com"]')).toHaveValue(email);
+        await expect(this.firstNameInput).toHaveValue(profile.firstName);
+        await expect(this.middleNameInput).toHaveValue(profile.middleName);
+        await expect(this.lastNameInput).toHaveValue(profile.lastName);
+        await expect(this.emailInput).toHaveValue(profile.email);
 
-        //await expect(this.page.locator('input[name="phoneNumber"]')).toHaveValue(phoneNumber);
-        await expect(this.page.locator('input[name="phoneNumber"]')).toHaveValue('(' + phoneNumber[0] + phoneNumber[1] + phoneNumber[2] + ')' + ' ' + phoneNumber[3] + phoneNumber[4] + phoneNumber[5] + '-' + phoneNumber[6] + phoneNumber[7] + phoneNumber[8] + phoneNumber[9]);
+        // Phone number is formatted by the application
+        const formattedPhone = `(${profile.phoneNumber.slice(0, 3)}) ${profile.phoneNumber.slice(3, 6)}-${profile.phoneNumber.slice(6)}`;
+        await expect(this.phoneNumberInput).toHaveValue(formattedPhone);
 
         await this.saveButton.click();
     }

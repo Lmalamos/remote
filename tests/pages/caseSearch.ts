@@ -18,51 +18,21 @@ export class caseSearchPage {
     }
 
     async searchByCaseId(caseId: string) {
-        //await this.page.pause();
-
         await this.caseId.fill(caseId);
         await expect(this.caseId).toHaveValue(caseId);
         await this.searchButton.click();
 
-        //await expect(this.page.getByText('Showing 1 to 1 of 1 entries')).toBeVisible();
-        //await expect(this.page.locator('#providerTable_info')).toContainText('Showing 1 to 1 of 1 entries');
-
-        //const rows = this.page.locator('tbody tr');
-        //await expect(rows).toHaveCount(1);
-
-        
-        // Wait for search results (optional if already awaited)
-        //await this.page.waitForSelector('tbody tr');
-
-        // Get the number of rows
         const rowCount = await this.page.locator('tbody tr').count();
-
-        // Assert that there is exactly 1 record
         expect(rowCount).toBe(1);
     }
 
     async searchByRequestId(requestId: string) {
-        //await this.page.pause();
-        
         await this.searchByRequestIdCheckBox.check();
         await this.requestId.fill(requestId);
         await expect(this.requestId).toHaveValue(requestId);
         await this.searchButton.click();
 
-        //await expect(this.page.getByText('Showing 1 to 1 of 1 entries')).toBeVisible();
-        //await expect(this.page.locator('#providerTable_info')).toContainText('Showing 1 to 1 of 1 entries');
-
-        //const rows = this.page.locator('tbody tr');
-        //await expect(rows).toHaveCount(1);
-
-        
-        // Wait for search results (optional if already awaited)
-        //await this.page.waitForSelector('tbody tr');
-
-        // Get the number of rows
         const rowCount = await this.page.locator('tbody tr').count();
-
-        // Assert that there is exactly 1 record
         expect(rowCount).toBe(1);
     }
 }

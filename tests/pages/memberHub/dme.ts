@@ -74,9 +74,7 @@ export class DMEPanel {
    * Expand the DME panel
    */
   async expandPanel() {
-    //await this.page.pause();
     await this.header.click();
-    //await this.page.waitForTimeout(500);
   }
 
   /**

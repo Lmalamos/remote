@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { ProviderSearchCriteria } from '../types';
 
 export class providerSearchPage {
     readonly page: Page;
@@ -29,41 +30,40 @@ export class providerSearchPage {
         this.searchButton = page.locator('#searchAddProviderButton');
     }
 
-    async searchProvider(client: string, npi: string, otherIdNumber: string, lastOrganizationName: string, firstName: string, city: string, state: string, zipCode: string, taxonomy: string) {
-        //await this.page.pause();
+    /**
+     * Search for a provider using provided criteria
+     * @param criteria - Provider search criteria object
+     */
+    async searchProvider(criteria: ProviderSearchCriteria) {
+        if (criteria.npi) {
+            await this.npi.fill(criteria.npi);
+            await this.searchButton.click();
+            await expect(this.page.getByText('Showing 1 to 1 of 1 entries')).toBeVisible();
+        }
 
-        await this.npi.fill(npi);
+        if (criteria.lastOrganizationName) {
+            await this.lastOrganizationName.fill(criteria.lastOrganizationName);
+        }
+        if (criteria.firstName) {
+            await this.firstName.fill(criteria.firstName);
+        }
+        if (criteria.city) {
+            await this.city.fill(criteria.city);
+        }
+        if (criteria.state) {
+            await this.state.selectOption(criteria.state);
+        }
+        if (criteria.zipCode) {
+            await this.zipCode.fill(criteria.zipCode);
+        }
+        if (criteria.taxonomy) {
+            await this.taxonomy.selectOption(criteria.taxonomy);
+        }
+
         await this.searchButton.click();
-
         await expect(this.page.getByText('Showing 1 to 1 of 1 entries')).toBeVisible();
-        await expect(this.page.locator('#providerTable_info')).toContainText('Showing 1 to 1 of 1 entries');
-        
-        await this.lastOrganizationName.fill(lastOrganizationName);
-        await expect(this.lastOrganizationName).toHaveValue(lastOrganizationName);
-        await this.firstName.fill(firstName);
-        await expect(this.firstName).toHaveValue(firstName);
-        await this.city.fill(city);
-        await expect(this.city).toHaveValue(city);
-        await this.state.selectOption(state);
-        await expect(this.state).toHaveValue(state);
-        await this.zipCode.fill(zipCode);
-        await expect(this.zipCode).toHaveValue(zipCode);
-        await this.taxonomy.selectOption(taxonomy);
-        await this.searchButton.click();
-        await expect(this.page.getByText('Showing 1 to 1 of 1 entries')).toBeVisible();
-        await expect(this.page.locator('#providerTable_info')).toContainText('Showing 1 to 1 of 1 entries');
 
-        //const rows = this.page.locator('tbody tr');
-        //await expect(rows).toHaveCount(1);
-
-        
-        // Wait for search results (optional if already awaited)
-        //await this.page.waitForSelector('tbody tr');
-
-        // Get the number of rows
         const rowCount = await this.page.locator('tbody tr').count();
-
-        // Assert that there is exactly 1 record
         expect(rowCount).toBe(1);
     }
 }

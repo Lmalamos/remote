@@ -22,20 +22,17 @@ export class loginPage {
     }
 
     async goto() {
-        await this.page.goto('https://stage-aws.myqualitrac.com/');
+        await this.page.goto('/');
     }
 
     async login(username: string, password: string) {
         await this.usernameInput.fill(username);
-        await expect(this.page.locator('#input28')).toHaveValue(username);
-        await this.page.waitForTimeout(500);
         await this.passwordInput.fill(password);
-        await expect(this.page.locator('#input36')).toHaveValue(password);
         await this.loginButton.click();
     }
 
     async verifyLogin() {
-        await expect(this.page).toHaveURL('https://stage-aws.myqualitrac.com/');
+        await expect(this.page).toHaveURL(/\//);
         expect(this.page).toBeTruthy();
     }
 

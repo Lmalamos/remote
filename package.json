@@ -1,17 +1,16 @@
 {
-  "name": "playwright_tests_3",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "@types/node": "^24.10.0"
-  },
-  "dependencies": {
-    "node": "^25.1.0"
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:stage": "TEST_ENV=stage playwright test",
+    "test:prod": "TEST_ENV=prod playwright test",
+    "test:local": "TEST_ENV=local playwright test",
+    "test:api": "playwright test api",
+    "test:visual": "playwright test visual",
+    "test:visual:update": "playwright test visual --update-snapshots",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "report": "playwright show-report",
+    "ui": "playwright test --ui"
   }
 }

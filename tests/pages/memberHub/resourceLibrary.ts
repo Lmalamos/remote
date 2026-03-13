@@ -17,11 +17,7 @@ export class resourceLibraryPanel {
     }
 
     async verifyResourceLibraryData() {
-        //await this.page.pause();
-
         await this.page.getByRole('button', { name: 'Resource Library' }).click();
-        
-        await this.page.waitForTimeout(3000);
 
         if (await this.page.getByRole('button', { name: 'Add new resource' }).isVisible()) {
             await this.page.getByRole('button', { name: 'Add new resource' }).click();

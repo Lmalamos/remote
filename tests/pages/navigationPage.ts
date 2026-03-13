@@ -37,69 +37,33 @@ export class navigationPage {
 
     //MENU OPTIONS:
     async scheduledReports() {
-        //await this.page.pause();
-
         const page1Promise = this.page.waitForEvent('popup');
         await this.page.getByRole('link', { name: 'Scheduled Reports' }).click();
         const page1 = await page1Promise;
 
-        //const rows = this.page.locator('tbody tr');
-        //await expect(rows).toHaveCount(0);
-
-        
-        // Wait for search results (optional if already awaited)
-        //await this.page.waitForSelector('tbody tr');
-
-        // Get the number of rows
         const rowCount = await this.page.locator('tbody tr').count();
-
-        // Assert that there is exactly 0 record
         expect(rowCount).toBe(0);
 
         await page1.close();
     }
 
     async coachingHub() {
-        //await this.page.pause();
-
         const page2Promise = this.page.waitForEvent('popup');
         await this.page.getByRole('link', { name: 'Coaching Hub' }).click();
         const page2 = await page2Promise;
 
-        //const rows = this.page.locator('tbody tr');
-        //await expect(rows).toHaveCount(0);
-
-        
-        // Wait for search results (optional if already awaited)
-        //await this.page.waitForSelector('tbody tr');
-
-        // Get the number of rows
         const rowCount = await this.page.locator('tbody tr').count();
-
-        // Assert that there is exactly 0 record
         expect(rowCount).toBe(0);
 
         await page2.close();
     }
 
     async messages() {
-        //await this.page.pause();
-
         const page3Promise = this.page.waitForEvent('popup');
         await this.page.getByRole('link', { name: 'Messages' }).click();
         const page3 = await page3Promise;
 
-        //const rows = this.page.locator('tbody tr');
-        //await expect(rows).toHaveCount(0);
-
-        
-        // Wait for search results (optional if already awaited)
-        //await this.page.waitForSelector('tbody tr');
-
-        // Get the number of rows
         const rowCount = await this.page.locator('tbody tr').count();
-
-        // Assert that there is exactly 0 record
         expect(rowCount).toBe(0);
 
         await page3.close();
@@ -117,8 +81,6 @@ export class navigationPage {
     }
 
     async knowledgeCenter() {
-        //await this.page.pause();
-
         await this.page.getByRole('link', { name: 'Knowledge Center' }).click();
         await this.page.getByRole('button', { name: 'Welcome Screen' }).click();
         await this.page.getByRole('link', { name: 'Care Management User Guide' }).click();
